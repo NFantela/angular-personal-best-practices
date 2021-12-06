@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import {
   HttpInterceptor,
   HttpEvent,
@@ -30,4 +30,5 @@ export class HttpLoadingInterceptor implements HttpInterceptor {
       }),
     );
   }
+
 }

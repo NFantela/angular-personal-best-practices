@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { asapScheduler, BehaviorSubject, Observable } from 'rxjs';
 import {
   distinctUntilChanged,
   map,
+  observeOn,
   scan,
   share,
-  tap,
 } from 'rxjs/operators';
 import { GlobalLoaderCorrectLoaderUrlFormat, GlobalLoaderHttpMethods } from '../models/global-http-loader.models';
 
@@ -29,6 +29,7 @@ export class GlobalHttpLoaderService extends Observable<Set<GlobalLoaderCorrectL
             }
             return loaderObject;
           }, new Set<GlobalLoaderCorrectLoaderUrlFormat>()),
+          observeOn(asapScheduler), // without this pushing from interceptor wont work
           share(),
         )
         .subscribe(subscriber);
@@ -41,7 +42,6 @@ export class GlobalHttpLoaderService extends Observable<Set<GlobalLoaderCorrectL
    */
   nextRequestUrl(requestUrl: GlobalLoaderCorrectLoaderUrlFormat): void {
     if (requestUrl) {
-      console.log(requestUrl)
       this._currentRequestsStream$$.next(requestUrl);
     }
   }

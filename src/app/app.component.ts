@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { interval, mapTo, Observable } from 'rxjs';
-import { GlobalLoaderCorrectLoaderUrlFormat } from './core/models/global-http-loader.models';
+import { Observable } from 'rxjs';
 import { GlobalHttpLoaderService } from './core/services/global-http-loader.service';
 
 @Component({
@@ -14,7 +13,6 @@ export class AppComponent {
   constructor(public readonly httpLoaderService$: GlobalHttpLoaderService) { }
 
   anyRequestStillLoading$: Observable<boolean> = this.httpLoaderService$.isAnythingStillLoading();
-
   // anyPostLoading$:Observable<boolean> = this.httpLoaderService$.listenForHttpMethodsLoading(['POST']);
   // getSecondLoading$:Observable<boolean> = this.httpLoaderService$.listenForSpecificRouteLoading('GET', 'second');
 
