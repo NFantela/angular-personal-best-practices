@@ -4,5 +4,16 @@
 </ul>
 <h4>Is anytHing loading</h4>
 {{ anyRequestStillLoading$ | async }}
-<h4>Second GET loading</h4>
-{{  getSecondLoading$ | async }}
+
+<nav class="navigation">
+    <ul>
+        <li>
+            <a
+                routerLink="/lazy-section-demo"
+                routerLinkActive="active">
+                Lazy loaded demo section
+            </a>
+        </li>
+    </ul>
+</nav>
+<router-outlet></router-outlet>

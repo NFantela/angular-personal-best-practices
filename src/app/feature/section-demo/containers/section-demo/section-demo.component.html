@@ -1,0 +1,7 @@
+Lazy loaded demo component right here
+<h3 *ngIf="usersFetchingLoading$ | async">Users are loading...</h3>
+
+<ul>
+    <li *ngFor="let user of users$ | async">{{user.name}}</li>
+</ul>
+<button (click)="handleMakeRequest()">Make a request</button>

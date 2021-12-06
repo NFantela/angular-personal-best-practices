@@ -5,6 +5,7 @@ import {
   map,
   scan,
   share,
+  tap,
 } from 'rxjs/operators';
 import { GlobalLoaderCorrectLoaderUrlFormat, GlobalLoaderHttpMethods } from '../models/global-http-loader.models';
 
@@ -40,6 +41,7 @@ export class GlobalHttpLoaderService extends Observable<Set<GlobalLoaderCorrectL
    */
   nextRequestUrl(requestUrl: GlobalLoaderCorrectLoaderUrlFormat): void {
     if (requestUrl) {
+      console.log(requestUrl)
       this._currentRequestsStream$$.next(requestUrl);
     }
   }
@@ -77,11 +79,11 @@ export class GlobalHttpLoaderService extends Observable<Set<GlobalLoaderCorrectL
    * @param routeContains: string from the route e.g. 'users'
    * @returns Observable :boolean
    */
-  listenForSpecificRouteLoading(method: GlobalLoaderHttpMethods, routeContains: string): Observable<boolean> {
+  listenForSpecificRouteLoading(requestedMethod: GlobalLoaderHttpMethods, routeContains: string): Observable<boolean> {
     return this.pipe(
       map((setData) => {
         const routeFound = Array.from(setData).find(itemLoading => {
-          const [method, route] = itemLoading.split('-') as [GlobalLoaderHttpMethods, string];
+          const [method, route] = itemLoading.split(requestedMethod + '-') as [GlobalLoaderHttpMethods, string];
           return method === method && route.indexOf(routeContains) > -1;
         });
         return !!routeFound;

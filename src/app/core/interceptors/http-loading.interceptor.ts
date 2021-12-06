@@ -19,6 +19,7 @@ export class HttpLoadingInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const method = this._supportedHTTPMethods.find(m => m === req.method);
     const requiredUrl: GlobalLoaderCorrectLoaderUrlFormat = method ? `${method}-${req.url}` : '';
+
     if (requiredUrl) {
       this._loaderService.nextRequestUrl(requiredUrl);
     }
