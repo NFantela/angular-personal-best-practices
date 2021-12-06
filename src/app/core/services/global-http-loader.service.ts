@@ -70,4 +70,24 @@ export class GlobalHttpLoaderService extends Observable<Set<GlobalLoaderCorrectL
       distinctUntilChanged(),
     )
   }
+
+  /**
+   * Listen for specific method and route combination
+   * @param method: GlobalLoaderHttpMethods e.g. DELETE
+   * @param routeContains: string from the route e.g. 'users'
+   * @returns Observable :boolean
+   */
+  listenForSpecificRouteLoading(method: GlobalLoaderHttpMethods, routeContains: string): Observable<boolean> {
+    return this.pipe(
+      map((setData) => {
+        const routeFound = Array.from(setData).find(itemLoading => {
+          const [method, route] = itemLoading.split('-') as [GlobalLoaderHttpMethods, string];
+          return method === method && route.indexOf(routeContains) > -1;
+        });
+        return !!routeFound;
+      }),
+      distinctUntilChanged(),
+    )
+  }
+
 }

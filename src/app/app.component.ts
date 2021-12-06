@@ -16,6 +16,7 @@ export class AppComponent {
   anyRequestStillLoading$: Observable<boolean> = this.httpLoaderService$.isAnythingStillLoading();
 
   anyPostLoading$:Observable<boolean> = this.httpLoaderService$.listenForHttpMethodsLoading(['POST']);
+  getSecondLoading$:Observable<boolean> = this.httpLoaderService$.listenForSpecificRouteLoading('GET', 'second');
 
   first = interval(3000)
     .pipe(mapTo<GlobalLoaderCorrectLoaderUrlFormat>('POST-first'))
@@ -23,4 +24,6 @@ export class AppComponent {
   second = interval(1000)
     .pipe(mapTo<GlobalLoaderCorrectLoaderUrlFormat>('GET-second'))
     .subscribe((v) => this.httpLoaderService$.nextRequestUrl(v));
+
+
 }
