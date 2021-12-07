@@ -4,6 +4,14 @@
 </ul>
 <h4>Is anytHing loading</h4>
 {{ anyRequestStillLoading$ | async }}
+<!-- loop over current notification Observables-->
+<div class="notifications">
+    <notification
+        *ngFor="let item of notificationsService$ | async"
+        [observer]="item.observer">
+        {{item.content}}
+    </notification>
+</div>
 
 <nav class="navigation">
     <ul>

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GlobalHttpLoaderService } from './core/services/global-http-loader.service';
+import { NotificationsService } from './core/services/notifications.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,9 @@ import { GlobalHttpLoaderService } from './core/services/global-http-loader.serv
 })
 export class AppComponent {
   title = 'angular-personal-best-practices';
-  constructor(public readonly httpLoaderService$: GlobalHttpLoaderService) { }
+  constructor(
+    public readonly httpLoaderService$: GlobalHttpLoaderService,
+    public readonly notificationsService$: NotificationsService) { }
 
   anyRequestStillLoading$: Observable<boolean> = this.httpLoaderService$.isAnythingStillLoading();
   // anyPostLoading$:Observable<boolean> = this.httpLoaderService$.listenForHttpMethodsLoading(['POST']);
