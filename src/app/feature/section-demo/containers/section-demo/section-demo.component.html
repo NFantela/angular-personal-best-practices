@@ -5,3 +5,9 @@ Lazy loaded demo component right here
     <li *ngFor="let user of users$ | async">{{user.name}}</li>
 </ul>
 <button (click)="handleMakeRequest()">Make a request</button>
+
+<h3>Controllers explained section</h3>
+<demo-numbers-field
+    [min]="2"
+    [max]="10">
+</demo-numbers-field>
