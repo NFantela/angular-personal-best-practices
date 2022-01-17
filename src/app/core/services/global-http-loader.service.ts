@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { asapScheduler, BehaviorSubject, Observable } from 'rxjs';
 import {
   distinctUntilChanged,
@@ -7,6 +7,7 @@ import {
   scan,
   share,
 } from 'rxjs/operators';
+import { leaveZone } from 'src/app/shared/operators/zone-free-full/zone-free-full.operators';
 import { GlobalLoaderCorrectLoaderUrlFormat, GlobalLoaderHttpMethods } from '../models/global-http-loader.models';
 
 const START_STRING: GlobalLoaderCorrectLoaderUrlFormat = '';
@@ -16,10 +17,11 @@ export class GlobalHttpLoaderService extends Observable<Set<GlobalLoaderCorrectL
 
   private readonly _currentRequestsStream$$: BehaviorSubject<GlobalLoaderCorrectLoaderUrlFormat> = new BehaviorSubject(START_STRING);
 
-  constructor() {
+  constructor(private readonly _ngZone: NgZone) {
     super((subscriber) => {
       return this._currentRequestsStream$$
         .pipe(
+          leaveZone(_ngZone),
           scan((loaderObject, nextUrl) => {
             // mutate set if we have truthy value (string)
             if (nextUrl) {
