@@ -77,7 +77,7 @@ export class GlobalHttpLoaderService extends Observable<Set<GlobalLoaderCorrectL
 
   /**
    * Listen for specific method and route combination
-   * @param method: GlobalLoaderHttpMethods e.g. DELETE
+   * @param requestedMethod: GlobalLoaderHttpMethods e.g. DELETE
    * @param routeContains: string from the route e.g. 'users'
    * @returns Observable :boolean
    */
