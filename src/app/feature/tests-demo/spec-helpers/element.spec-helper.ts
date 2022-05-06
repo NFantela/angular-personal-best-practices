@@ -12,8 +12,8 @@ import { By } from '@angular/platform-browser';
  * @param testId Test id set by `data-testid`
  *
  */
-export function testIdSelector<T extends string>(testId: T): `[data-testid=${T}]` {
-  return `[data-testid="${testId}"]` as `[data-testid=${T}]`;
+export function testIdSelector<T extends string>(testId: T): `[data-testid="${T}"]` {
+  return `[data-testid="${testId}"]` as `[data-testid="${T}"]`;
 }
 
 
