@@ -1,0 +1,47 @@
+<ng-container *ngIf="filtersSerice | async as queryFilters">
+    <pre>{{ queryFilters | json }}</pre>
+    <section>
+        <div>
+            <input
+                type="text"
+                [value]="queryFilters.search ?? ''"
+                (input)="handleSearchChange($event)">
+        </div>
+        <div>
+            <label>
+                Please choose one or more pets (hold CTRL for multiple):
+                <select
+                    name="pets"
+                    multiple
+                    size="4"
+                    ngModel
+                    (ngModelChange)="handlePetChange($event)">
+                    <optgroup label="4-legged pets">
+                        <option value="dog">Dog</option>
+                        <option value="cat">Cat</option>
+                    </optgroup>
+                    <optgroup label="Flying pets">
+                        <option value="parrot">Parrot</option>
+                        <option value="macaw">Macaw</option>
+                        <option value="albatross">Albatross</option>
+                    </optgroup>
+                </select>
+            </label>
+        </div>
+        <p>
+            <label for="pet-select">Sort by</label>
+            <select
+                ngModel
+                name="sorting"
+                id="sorting-select"
+                (ngModelChange)="handleSortChange($event)">
+                <option value>--Please choose an option--</option>
+                <option
+                    *ngFor="let sortOption of sortTypes"
+                    [value]="sortOption">
+                    {{sortOption}}
+                </option>
+            </select>
+        </p>
+    </section>
+</ng-container>
