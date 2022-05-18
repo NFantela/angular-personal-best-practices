@@ -8,13 +8,14 @@
                 (input)="handleSearchChange($event)">
         </div>
         <div>
+            <!-- multiple selection filters -->
             <label>
                 Please choose one or more pets (hold CTRL for multiple):
                 <select
                     name="pets"
                     multiple
                     size="4"
-                    ngModel
+                    [ngModel]="queryFilters.customFilters?.petType"
                     (ngModelChange)="handlePetChange($event)">
                     <optgroup label="4-legged pets">
                         <option value="dog">Dog</option>
@@ -29,13 +30,14 @@
             </label>
         </div>
         <p>
-            <label for="pet-select">Sort by</label>
+            <!-- sorting controls -->
+            <label for="sorting-select">Sort by</label>
             <select
-                ngModel
+                [ngModel]="joinSort(queryFilters.sortField, queryFilters.direction)"
                 name="sorting"
                 id="sorting-select"
                 (ngModelChange)="handleSortChange($event)">
-                <option value>--Please choose an option--</option>
+                <option value>--Please choose an sort option--</option>
                 <option
                     *ngFor="let sortOption of sortTypes"
                     [value]="sortOption">
@@ -43,5 +45,34 @@
                 </option>
             </select>
         </p>
+        <div>
+            <!-- page size -->
+            <label for="pagination-select">Page size</label>
+            <select
+                [ngModel]="queryFilters.pageSize"
+                name="page-size"
+                id="pagination-select"
+                (ngModelChange)="handleChangePageSize($event)">
+                <option value>--Select page size--</option>
+                <option
+                    *ngFor="let page of pageSizes"
+                    [value]="page">
+                    {{page}}
+                </option>
+            </select>
+        </div>
+        <!-- change page -->
+        <button
+            type="button"
+            [disabled]="queryFilters.page === 1"
+            (click)="changePage('decrement', queryFilters.page)">
+            < Prev
+        </button>
+        <span>{{ queryFilters.page }}</span>
+        <button
+            type="button"
+            (click)="changePage('increment', queryFilters.page)">
+            Next >
+        </button>
     </section>
 </ng-container>
